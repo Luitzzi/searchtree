@@ -1,7 +1,5 @@
 package main;
 
-import java.util.function.Function;
-
 public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, BasicTreeNode<T>> {
 
     @Override
@@ -11,44 +9,45 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
 
     @Override
     protected void insert_Recursion(BasicTreeNode<T> currentRoot, BasicTreeNode<T> nodeToInsert) {
-        if (currentRoot == null) {
-            currentRoot = nodeToInsert;
-        }
-        else {
-            T rootValue = currentRoot.getValue();
-            T insertValue = nodeToInsert.getValue();
-            if (insertValue.compareTo(rootValue) < 0) {
-                if (currentRoot.getLeft() == null) {
-                    currentRoot.setLeft(nodeToInsert);
-                }
-                else {
-                    insert_Recursion(currentRoot.getLeft(), nodeToInsert);
-                }
-            } else {
-                if (currentRoot.getRight() == null) {
-                    currentRoot.setRight(nodeToInsert);
-                }
-                else {
-                    insert_Recursion(currentRoot.getRight(), nodeToInsert);
-                }
+        T rootValue = currentRoot.getValue();
+        T insertValue = nodeToInsert.getValue();
+        // Check which branch the recursion needs to follow to get to the insertion place.
+        if (insertValue.compareTo(rootValue) < 0) {
+            if (currentRoot.getLeft() == null) {
+                // Base case: Insert as left element.
+                currentRoot.setLeft(nodeToInsert);
+            }
+            else {
+                insert_Recursion(currentRoot.getLeft(), nodeToInsert);
+            }
+        } else {
+            if (currentRoot.getRight() == null) {
+                // Base case: Insert as right element.
+                currentRoot.setRight(nodeToInsert);
+            }
+            else {
+                insert_Recursion(currentRoot.getRight(), nodeToInsert);
             }
         }
+
     }
 
-    public void insert_Iterativ(T value) {
+    public void insert_Iterative(T value) {
         BasicTreeNode<T> currentRoot = root;
         BasicTreeNode<T> nodeToInsert = new BasicTreeNode<>(value);
         boolean gotInserted = false;
 
         if (root == null) {
-            root = nodeToInsert;
+            setRoot(nodeToInsert);
         }
         else {
             while (!gotInserted) {
                 T rootValue = currentRoot.getValue();
                 T insertValue = nodeToInsert.getValue();
+                // Check which branch the recursion needs to follow to get to the insertion place.
                 if (insertValue.compareTo(rootValue) < 0) {
                     if (currentRoot.getLeft() == null) {
+                        // Base case: Insert as left element.
                         currentRoot.setLeft(nodeToInsert);
                         gotInserted = true;
                     }
@@ -57,6 +56,7 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
                     }
                 } else {
                     if (currentRoot.getRight() == null) {
+                        // Base case: Insert as right element.
                         currentRoot.setRight(nodeToInsert);
                         gotInserted = true;
                     }
@@ -75,10 +75,12 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
             return false;
         }
         else if (currentRoot.getValue().compareTo(value) == 0) {
+            // Element found.
             System.out.println("The tree contains the value " + value + ".");
             return true;
         }
         else {
+            // Check in which branch the element should be.
             if (value.compareTo(currentRoot.getValue()) < 0) {
                 return contains(currentRoot.getLeft(), value);
             }
@@ -86,7 +88,8 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
         }
     }
 
-    public void delete_Iterativ(T value) {
+    @SuppressWarnings("unused")
+    public void delete_Iterative(T value) {
         BasicTreeNode<T> currentNode = root;
         BasicTreeNode<T> previousNode = null;
         boolean gotDeleted = false;
@@ -106,11 +109,10 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
                 } else {
                     if (previousNode == null) {
                         deleteRoot();
-                        gotDeleted = true;
                     } else {
                         deleteNode(previousNode, currentNode);
-                        gotDeleted = true;
                     }
+                    gotDeleted = true;
                 }
             }
         }
@@ -118,18 +120,22 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
     }
 
     protected void delete(BasicTreeNode<T> previousNode, BasicTreeNode<T> currentNode, T value) {
+        // Base case: Value is not in the tree.
         if (currentNode == null) {
             System.out.println("The value " + value + " doesn't exist!");
         }
         else {
+            // Check in which branch the value should be.
             if (value.compareTo(currentNode.getValue()) < 0) {
                 delete(currentNode, currentNode.getLeft(), value);
             } else if (value.compareTo(currentNode.getValue()) > 0) {
                 delete(currentNode, currentNode.getRight(), value);
             } else {
                 if (previousNode == null) {
+                    // Base case: Value is at the root.
                     deleteRoot();
                 } else {
+                    // Base case: Value is inside the tree, or a leaf.
                     deleteNode(previousNode, currentNode);
                 }
             }
@@ -143,13 +149,18 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
         if (hasLeftDescendant && hasRightDescendant) {
             delete_With_Two_Descendants(root);
         } else if (hasLeftDescendant) {
-            root = root.getLeft();
+            setRoot(root.getLeft());
         } else if (hasRightDescendant) {
-            root = root.getRight();
+            setRoot(root.getRight());
         } else {
-            root = null;
+            setRoot(null);
         }
     }
+
+    // Delete the node in the left, or right branch considering the cases:
+    // - Has two descendants
+    // - Has only a left/ right descendants
+    // - Has no descendants
     protected void deleteNode(BasicTreeNode<T> previousNode, BasicTreeNode<T> nodeToDelete) {
         boolean isLeftNode = previousNode.getLeft() == nodeToDelete;
         boolean hasLeftDescendant = nodeToDelete.getLeft() != null;
@@ -191,6 +202,8 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
         nodeToDelete.setValue(nextGreaterNumber);
     }
 
+    // For case: "Delete with two descendants"
+    // -> Switch the value of the nodeToDelete with the next greater value in the tree and delete this node
     protected T get_Next_Greater_Number_And_Delete_It(BasicTreeNode<T> previousNode, BasicTreeNode<T> currentNode) {
         if (currentNode.getLeft() == null) {
             previousNode.setLeft(null);

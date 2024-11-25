@@ -1,7 +1,5 @@
 package main;
 
-import com.sun.source.tree.Tree;
-
 public class AvlTreeNode<T extends Comparable<T>> implements TreeNode<T, AvlTreeNode<T>> {
     private T value;
     private AvlTreeNode<T> left;

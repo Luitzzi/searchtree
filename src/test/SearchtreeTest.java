@@ -1,7 +1,6 @@
 package test;
 
 import main.Searchtree;
-import main.BasicTreeNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,13 +17,13 @@ class SearchtreeTest {
 
     @Test
     public void test_Insert() {
-        tree.insert_Iterativ(6);
-        tree.insert_Iterativ(3);
-        tree.insert_Iterativ(8);
-        tree.insert_Iterativ(4);
-        tree.insert_Iterativ(7);
-        tree.insert_Iterativ(10);
-        tree.insert_Iterativ(1);
+        tree.insert_Iterative(6);
+        tree.insert_Iterative(3);
+        tree.insert_Iterative(8);
+        tree.insert_Iterative(4);
+        tree.insert_Iterative(7);
+        tree.insert_Iterative(10);
+        tree.insert_Iterative(1);
         /*
         tree.insert(6);
         tree.insert(3);
