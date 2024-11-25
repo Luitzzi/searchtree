@@ -6,8 +6,14 @@ public class AvlTreeNode<T extends Comparable<T>> implements TreeNode<T, AvlTree
     private AvlTreeNode<T> right;
     private int height;
 
+    public AvlTreeNode() {
+        value = null;
+        height = 0;
+    }
+
     public AvlTreeNode(T value) {
         this.value = value;
+        height = 0;
     }
 
     @Override

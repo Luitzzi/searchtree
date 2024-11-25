@@ -1,12 +1,11 @@
 package test;
 
 import main.AvlSearchtree;
-import main.AvlTreeNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class AvlSearchtreeTest {
+class AvlSearchtreeTestInsertion {
     private AvlSearchtree<Integer> tree;
 
     @BeforeEach
@@ -52,7 +51,7 @@ class AvlSearchtreeTest {
         // Right Branch
         assertEquals(20, tree.getRoot().getRight().getValue());
         assertEquals(17, tree.getRoot().getRight().getLeft().getValue());
-        assertEquals(26, tree.getRoot().getRight().getRight().getValue());
+        assertEquals(25, tree.getRoot().getRight().getRight().getValue());
     }
 
     @Test

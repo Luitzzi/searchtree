@@ -28,7 +28,7 @@ public abstract class AbstractSearchTree <T extends Comparable<T>, N extends Tre
     public void insert(T value) {
         N nodeToInsert = create_Node(value);
         if (root == null) {
-            root = nodeToInsert;
+            setRoot(nodeToInsert);
         }
         else {
             insert_Recursion(root, nodeToInsert);

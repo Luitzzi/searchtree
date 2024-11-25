@@ -2,10 +2,13 @@ package main;
 
 public class Main {
     public static void main(String[] args) {
-        Searchtree<Integer> test = new Searchtree<>();
-        Integer []treeElements = {6,3,8,1,4,7,10};
+
+        AvlSearchtree<Integer> test = new AvlSearchtree<>();
+        Integer []treeElements = {1,2,3,4};
         test.create_Tree(treeElements);
         String result = test.print_Inorder_As_String();
         System.out.print(result);
+
+
     }
 }

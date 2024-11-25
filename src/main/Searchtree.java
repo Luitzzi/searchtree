@@ -29,7 +29,6 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
                 insert_Recursion(currentRoot.getRight(), nodeToInsert);
             }
         }
-
     }
 
     public void insert_Iterative(T value) {
