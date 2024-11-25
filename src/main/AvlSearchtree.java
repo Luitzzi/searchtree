@@ -2,23 +2,23 @@ package main;
 
 import java.util.function.Function;
 
-public class AVL_Searchtree<T extends Comparable<T>> extends Searchtree<T,AVL_Tree_Element<T>> {
-    private AVL_Tree_Element<T> root;
+public class AvlSearchtree<T extends Comparable<T>> extends Searchtree<T, AvlNode<T>> {
+    private AvlNode<T> root;
 
-    public AVL_Searchtree(Function<T, AVL_Tree_Element<T>> nodeFactory){
+    public AvlSearchtree(Function<T, AvlNode<T>> nodeFactory){
         super(nodeFactory);
     }
 
-    public void setRoot(AVL_Tree_Element<T> root) {
+    public void setRoot(AvlNode<T> root) {
         this.root = root;
     }
 
     @Override
-    public AVL_Tree_Element<T> getRoot() {
+    public AvlNode<T> getRoot() {
         return root;
     }
 
-    public int getHeight(AVL_Tree_Element<T> node) {
+    public int getHeight(AvlNode<T> node) {
         if (node == null) {
             return -1;
         }
@@ -27,14 +27,14 @@ public class AVL_Searchtree<T extends Comparable<T>> extends Searchtree<T,AVL_Tr
         }
     }
 
-    public void updateHeight(AVL_Tree_Element<T> node) {
+    public void updateHeight(AvlNode<T> node) {
         int heightLeftElement = getHeight(node.getLeft());
         //node.setHeight(1 + Math.max());
     }
 
     @Override
     public void insert(T value) {
-        AVL_Tree_Element<T> nodeToInsert = new AVL_Tree_Element<>(value);
+        AvlNode<T> nodeToInsert = new AvlNode<>(value);
         if (root == null) {
             root = nodeToInsert;
             root.setHeight(0);
@@ -44,7 +44,7 @@ public class AVL_Searchtree<T extends Comparable<T>> extends Searchtree<T,AVL_Tr
         }
     }
 
-    protected void insert_Recursion_AVL(AVL_Tree_Element<T> currentRoot, AVL_Tree_Element<T> nodeToInsert) {
+    protected void insert_Recursion_AVL(AvlNode<T> currentRoot, AvlNode<T> nodeToInsert) {
         if (currentRoot == null) {
             currentRoot = nodeToInsert;
             currentRoot.setHeight(0);

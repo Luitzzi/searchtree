@@ -2,7 +2,7 @@ package main;
 
 import java.util.function.Function;
 
-public class Searchtree<T extends Comparable<T>, N extends Node<T,Tree_Element<T>>> {
+public class Searchtree<T extends Comparable<T>, N extends Node<T, Node<T>>> {
     protected N root;
     protected Function<T,N> nodeFactory;
 

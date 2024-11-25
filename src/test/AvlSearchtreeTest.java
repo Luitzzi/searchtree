@@ -1,17 +1,17 @@
 package test;
 
-import main.AVL_Searchtree;
-import main.AVL_Tree_Element;
+import main.AvlSearchtree;
+import main.AvlNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class AVL_SearchtreeTest {
-    private AVL_Searchtree<Integer> tree;
+class AvlSearchtreeTest {
+    private AvlSearchtree<Integer> tree;
 
     @BeforeEach
     public void setup() {
-        tree = new AVL_Searchtree<>(AVL_Tree_Element::new);
+        tree = new AvlSearchtree<>(AvlNode::new);
     }
 
     @Test

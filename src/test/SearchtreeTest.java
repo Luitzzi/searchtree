@@ -1,7 +1,6 @@
 package test;
 
 import main.Searchtree;
-import main.Tree_Element;
 import main.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class SearchtreeTest {
-    private Searchtree<Integer, Tree_Element<Integer>> tree;
+    private Searchtree<Integer, Node<Integer>> tree;
 
     @BeforeEach
     public void setup() {
-        tree = new Searchtree<>(Tree_Element::new);
+        tree = new Searchtree<>(Node::new);
     }
 
     @Test

@@ -1,10 +1,37 @@
 package main;
 
-public interface Node <T extends Comparable<T>, N extends Node<T,N>>{
-    public T getValue();
-    public void setValue(T value);
-    public N getLeft();
-    public void setLeft(N left);
-    public N getRight();
-    public void setRight(N right);
+public class Node<T extends Comparable<T>> {
+    private T value;
+    private Node<T> left;
+    private Node<T> right;
+
+    public Node(T value) {
+        this.value = value;
+        left = null;
+        right = null;
+    }
+
+    public T getValue() {
+        return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    public Node<T> getLeft() {
+        return left;
+    }
+
+    public void setLeft(Node<T> left) {
+        this.left = left;
+    }
+
+    public Node<T> getRight() {
+        return right;
+    }
+
+    public void setRight(Node<T> right) {
+        this.right = right;
+    }
 }
