@@ -8,6 +8,10 @@ public class AvlTreeNode<T extends Comparable<T>> implements TreeNode<T, AvlTree
     private AvlTreeNode<T> right;
     private int height;
 
+    public AvlTreeNode(T value) {
+        this.value = value;
+    }
+
     @Override
     public T getValue() {
         return value;
@@ -36,5 +40,13 @@ public class AvlTreeNode<T extends Comparable<T>> implements TreeNode<T, AvlTree
     @Override
     public void setRight(AvlTreeNode<T> right) {
         this.right = right;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

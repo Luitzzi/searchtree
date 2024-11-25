@@ -2,39 +2,15 @@ package main;
 
 import java.util.function.Function;
 
-public class Searchtree<T extends Comparable<T>, N extends Node<T, Node<T>>> {
-    protected N root;
-    protected Function<T,N> nodeFactory;
+public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, BasicTreeNode<T>> {
 
-    public Searchtree(Function<T, N> nodeFactory) {
-        this.nodeFactory = nodeFactory;
+    @Override
+    protected BasicTreeNode<T> create_Node(T value) {
+        return new BasicTreeNode<>(value);
     }
 
-    public N getRoot() {
-        return root;
-    }
-
-    public void setRoot(N root) {
-        this.root = root;
-    }
-
-    public void create_Tree(T[] treeElements) {
-        for (T treeElement : treeElements) {
-            insert(treeElement);
-        }
-    }
-
-    public void insert(T value) {
-        N nodeToInsert = nodeFactory.apply(value);
-        if (root == null) {
-            root = nodeToInsert;
-        }
-        else {
-            insert_Recursion(root, nodeToInsert);
-        }
-    }
-
-    protected void insert_Recursion(N currentRoot, N nodeToInsert) {
+    @Override
+    protected void insert_Recursion(BasicTreeNode<T> currentRoot, BasicTreeNode<T> nodeToInsert) {
         if (currentRoot == null) {
             currentRoot = nodeToInsert;
         }
@@ -60,8 +36,8 @@ public class Searchtree<T extends Comparable<T>, N extends Node<T, Node<T>>> {
     }
 
     public void insert_Iterativ(T value) {
-        N currentRoot = root;
-        N nodeToInsert = nodeFactory.apply(value);
+        BasicTreeNode<T> currentRoot = root;
+        BasicTreeNode<T> nodeToInsert = new BasicTreeNode<>(value);
         boolean gotInserted = false;
 
         if (root == null) {
@@ -92,11 +68,8 @@ public class Searchtree<T extends Comparable<T>, N extends Node<T, Node<T>>> {
         }
     }
 
-    public boolean contains(T value) {
-        return contains(root, value);
-    }
-
-    protected boolean contains(N currentRoot, T value) {
+    @Override
+    protected boolean contains(BasicTreeNode<T> currentRoot, T value) {
         if (currentRoot == null) {
             System.out.println("The tree doesn't contain the value " + value + ".");
             return false;
@@ -113,13 +86,9 @@ public class Searchtree<T extends Comparable<T>, N extends Node<T, Node<T>>> {
         }
     }
 
-    public void delete_Tree() {
-        root = null;
-    }
-
     public void delete_Iterativ(T value) {
-        N currentNode = root;
-        N previousNode = null;
+        BasicTreeNode<T> currentNode = root;
+        BasicTreeNode<T> previousNode = null;
         boolean gotDeleted = false;
 
         while (!gotDeleted) {
@@ -148,13 +117,7 @@ public class Searchtree<T extends Comparable<T>, N extends Node<T, Node<T>>> {
 
     }
 
-    public void delete(T value) {
-        N currentNode = root;
-        delete(null, currentNode, value);
-        //delete_Iterativ(value);
-    }
-
-    protected void delete(N previousNode, N currentNode, T value) {
+    protected void delete(BasicTreeNode<T> previousNode, BasicTreeNode<T> currentNode, T value) {
         if (currentNode == null) {
             System.out.println("The value " + value + " doesn't exist!");
         }
@@ -187,7 +150,7 @@ public class Searchtree<T extends Comparable<T>, N extends Node<T, Node<T>>> {
             root = null;
         }
     }
-    protected void deleteNode(N previousNode, N nodeToDelete) {
+    protected void deleteNode(BasicTreeNode<T> previousNode, BasicTreeNode<T> nodeToDelete) {
         boolean isLeftNode = previousNode.getLeft() == nodeToDelete;
         boolean hasLeftDescendant = nodeToDelete.getLeft() != null;
         boolean hasRightDescendant = nodeToDelete.getRight() != null;
@@ -216,7 +179,7 @@ public class Searchtree<T extends Comparable<T>, N extends Node<T, Node<T>>> {
         }
     }
 
-    protected void delete_With_Two_Descendants(N nodeToDelete) {
+    protected void delete_With_Two_Descendants(BasicTreeNode<T> nodeToDelete) {
         T nextGreaterNumber;
         if (nodeToDelete.getRight().getLeft() == null) {
             nextGreaterNumber = nodeToDelete.getRight().getValue();
@@ -228,43 +191,11 @@ public class Searchtree<T extends Comparable<T>, N extends Node<T, Node<T>>> {
         nodeToDelete.setValue(nextGreaterNumber);
     }
 
-    protected T get_Next_Greater_Number_And_Delete_It(N previousNode, N currentNode) {
+    protected T get_Next_Greater_Number_And_Delete_It(BasicTreeNode<T> previousNode, BasicTreeNode<T> currentNode) {
         if (currentNode.getLeft() == null) {
             previousNode.setLeft(null);
             return currentNode.getValue();
         }
         else return get_Next_Greater_Number_And_Delete_It(currentNode, currentNode.getLeft());
     }
-
-    public void print_Inorder() {
-        N currentRoot = root;
-        print_Inorder(root);
-        System.out.print("\n");
-    }
-
-    protected void print_Inorder(N currentRoot) {
-        if (currentRoot != null) {
-            System.out.print("( ");
-            print_Inorder(currentRoot.getLeft());
-            System.out.print(" , ");
-            System.out.print(currentRoot.getValue());
-            System.out.print(" , ");
-            print_Inorder(currentRoot.getRight());
-            System.out.print(" )");
-        }
-        else System.out.print("n");
-    }
-
-    public String print_Inorder_As_String() {
-        N currentRoot = root;
-        return print_Inorder_As_String(root);
-    }
-
-    protected String print_Inorder_As_String(N currentRoot) {
-        if (currentRoot != null) {
-            return ("( " + print_Inorder_As_String(currentRoot.getLeft()) + " , " + currentRoot.getValue() + " , " + print_Inorder_As_String(currentRoot.getRight()) + " )");
-        }
-        else return "n";
-    }
-
 }
