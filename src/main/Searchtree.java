@@ -141,7 +141,7 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
         }
     }
 
-    protected void deleteRoot() {
+    private void deleteRoot() {
         boolean hasLeftDescendant = root.getLeft() != null;
         boolean hasRightDescendant = root.getRight() != null;
 
@@ -160,7 +160,7 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
     // - Has two descendants
     // - Has only a left/ right descendants
     // - Has no descendants
-    protected void deleteNode(BasicTreeNode<T> previousNode, BasicTreeNode<T> nodeToDelete) {
+    private void deleteNode(BasicTreeNode<T> previousNode, BasicTreeNode<T> nodeToDelete) {
         boolean isLeftNode = previousNode.getLeft() == nodeToDelete;
         boolean hasLeftDescendant = nodeToDelete.getLeft() != null;
         boolean hasRightDescendant = nodeToDelete.getRight() != null;
@@ -189,7 +189,7 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
         }
     }
 
-    protected void delete_With_Two_Descendants(BasicTreeNode<T> nodeToDelete) {
+    private void delete_With_Two_Descendants(BasicTreeNode<T> nodeToDelete) {
         T nextGreaterNumber;
         if (nodeToDelete.getRight().getLeft() == null) {
             nextGreaterNumber = nodeToDelete.getRight().getValue();

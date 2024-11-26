@@ -89,4 +89,41 @@ public abstract class AbstractSearchTree <T extends Comparable<T>, N extends Tre
         else return "n";
     }
 
+    public void print_Preorder_On_Console() {
+        N currentRoot = root;
+        print_Preorder_On_Console(root);
+        System.out.print("\n");
+    }
+
+    protected void print_Preorder_On_Console(N currentRoot) {
+        if (currentRoot != null) {
+            System.out.print("( ");
+            System.out.print(currentRoot.getValue());
+            System.out.print(" , ");
+            print_Preorder_On_Console(currentRoot.getLeft());
+            System.out.print(" , ");
+            print_Preorder_On_Console(currentRoot.getRight());
+            System.out.print(" )");
+        }
+        else System.out.print("n");
+    }
+
+    public void print_Postorder_On_Console() {
+        N currentRoot = root;
+        print_Postorder_On_Console(root);
+        System.out.print("\n");
+    }
+
+    protected void print_Postorder_On_Console(N currentRoot) {
+        if (currentRoot != null) {
+            System.out.print("( ");
+            print_Postorder_On_Console(currentRoot.getLeft());
+            System.out.print(" , ");
+            print_Postorder_On_Console(currentRoot.getRight());
+            System.out.print(" , ");
+            System.out.print(currentRoot.getValue());
+            System.out.print(" )");
+        }
+        else System.out.print("n");
+    }
 }
