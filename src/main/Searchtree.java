@@ -196,18 +196,18 @@ public class Searchtree<T extends Comparable<T>> extends AbstractSearchTree<T, B
             nodeToDelete.setRight(nodeToDelete.getRight().getRight());
         }
         else {
-            nextGreaterNumber = get_Next_Greater_Number_And_Delete_It(nodeToDelete.getRight(), nodeToDelete.getRight().getLeft());
+            nextGreaterNumber = get_Inorder_Successor(nodeToDelete.getRight(), nodeToDelete.getRight().getLeft());
         }
         nodeToDelete.setValue(nextGreaterNumber);
     }
 
     // For case: "Delete with two descendants"
     // -> Switch the value of the nodeToDelete with the next greater value in the tree and delete this node
-    protected T get_Next_Greater_Number_And_Delete_It(BasicTreeNode<T> previousNode, BasicTreeNode<T> currentNode) {
+    protected T get_Inorder_Successor(BasicTreeNode<T> previousNode, BasicTreeNode<T> currentNode) {
         if (currentNode.getLeft() == null) {
             previousNode.setLeft(null);
             return currentNode.getValue();
         }
-        else return get_Next_Greater_Number_And_Delete_It(currentNode, currentNode.getLeft());
+        else return get_Inorder_Successor(currentNode, currentNode.getLeft());
     }
 }

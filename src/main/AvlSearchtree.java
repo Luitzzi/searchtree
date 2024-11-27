@@ -238,7 +238,7 @@ public class AvlSearchtree<T extends Comparable<T>> extends AbstractSearchTree<T
             update_Height(nodeToDelete);
         }
         else {
-            nextGreaterNumber = get_Next_Greater_Number_And_Delete_It(nodeToDelete.getRight(), nodeToDelete.getRight().getLeft());
+            nextGreaterNumber = get_Inorder_Successor(nodeToDelete.getRight(), nodeToDelete.getRight().getLeft());
             update_Height(nodeToDelete.getRight());
             update_Height(nodeToDelete);
         }
@@ -247,13 +247,13 @@ public class AvlSearchtree<T extends Comparable<T>> extends AbstractSearchTree<T
 
     // For case: "Delete with two descendants"
     // -> Switch the value of the nodeToDelete with the next greater value in the tree and delete this node
-    protected T get_Next_Greater_Number_And_Delete_It(AvlTreeNode<T> previousNode, AvlTreeNode<T> currentNode) {
+    protected T get_Inorder_Successor(AvlTreeNode<T> previousNode, AvlTreeNode<T> currentNode) {
         if (currentNode.getLeft() == null) {
             previousNode.setLeft(null);
             return currentNode.getValue();
         }
         else {
-            T nextGreaterNumber = get_Next_Greater_Number_And_Delete_It(currentNode, currentNode.getLeft());
+            T nextGreaterNumber = get_Inorder_Successor(currentNode, currentNode.getLeft());
             update_Height(currentNode);
             return nextGreaterNumber;
         }
